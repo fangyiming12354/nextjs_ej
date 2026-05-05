@@ -34,6 +34,16 @@ export async function getProductosByCategoria(
   return rows as Producto[];
 }
 
+export async function getProductosByCategoriaSlug(slug: string): Promise<Producto[]> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    `SELECT p.* FROM productos p
+     INNER JOIN categorias c ON p.categoria_id = c.id
+     WHERE c.slug = ?`,
+    [slug]
+  );
+  return rows as Producto[];
+}
+
 export async function createProducto(
   categoria_id: number,
   nombre: string,
