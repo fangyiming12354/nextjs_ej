@@ -34,6 +34,8 @@ export async function getProductosByCategoria(
   return rows as Producto[];
 }
 
+// Filtra productos por el slug de la categoría (ej: "zapatillas")
+// Usa JOIN para unir las tablas productos y categorias y buscar por slug
 export async function getProductosByCategoriaSlug(slug: string): Promise<Producto[]> {
   const [rows] = await pool.query<RowDataPacket[]>(
     `SELECT p.* FROM productos p
