@@ -5,7 +5,7 @@ const pool = mysql.createPool({
   port: 3306,
   user: "root",
   password: "",
-  database: "tienda", // cambia esto por el nombre de tu BD en phpMyAdmin
+  database: "nextjs_ej",
   waitForConnections: true,
   connectionLimit: 10,
 });
