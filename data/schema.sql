@@ -36,7 +36,7 @@ INSERT INTO `productos` (`categoria_id`, `nombre`, `descripcion`, `precio`, `ima
 (3, 'Pantalón Jogger Gris', 'Pantalón cómodo para deporte y casual', 34.99, 'pantalon-jogger-gris.jpg'),
 (3, 'Vaquero Slim Fit Azul', 'Vaquero ajustado de corte moderno', 59.99, 'vaquero-slim-fit-azul.jpg'),
 (4, 'Calcetines Pack x5 Blancos', 'Pack de 5 pares de calcetines de algodón', 9.99, 'calcetines-blancos.jpg'),
-(4, 'Calcetines Antideslizantes', 'Calcetines con suela antideslizante para casa', 7.99, 'calcetines-antideslizantes.jpg');
+(4, 'Calcetines Antideslizantes', 'Calcetines con suela antideslizante para casa', 7.99, 'calcetine-antideslizante.jpg');
 
 -- --------------------------------------------------------
 
