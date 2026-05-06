@@ -1,0 +1,65 @@
+import pool from "@/lib/db";
+import { RowDataPacket, ResultSetHeader } from "mysql2";
+
+export interface Producto {
+  id: number;
+  categoria_id: number;
+  nombre: string;
+  descripcion: string | null;
+  precio: number;
+  imagen: string | null;
+  creado_en: Date;
+}
+
+export async function getProductos(): Promise<Producto[]> {
+  const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM productos");
+  return rows as Producto[];
+}
+
+export async function getProductoById(id: number): Promise<Producto | null> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM productos WHERE id = ?",
+    [id]
+  );
+  return (rows[0] as Producto) ?? null;
+}
+
+export async function getProductosByCategoria(
+  categoria_id: number
+): Promise<Producto[]> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    "SELECT * FROM productos WHERE categoria_id = ?",
+    [categoria_id]
+  );
+  return rows as Producto[];
+}
+
+// Filtra productos por el slug de la categoría (ej: "zapatillas")
+// Usa JOIN para unir las tablas productos y categorias y buscar por slug
+export async function getProductosByCategoriaSlug(slug: string): Promise<Producto[]> {
+  const [rows] = await pool.query<RowDataPacket[]>(
+    `SELECT p.* FROM productos p
+     INNER JOIN categorias c ON p.categoria_id = c.id
+     WHERE c.slug = ?`,
+    [slug]
+  );
+  return rows as Producto[];
+}
+
+export async function createProducto(
+  categoria_id: number,
+  nombre: string,
+  descripcion: string | null,
+  precio: number,
+  imagen: string | null
+): Promise<number> {
+  const [result] = await pool.query<ResultSetHeader>(
+    "INSERT INTO productos (categoria_id, nombre, descripcion, precio, imagen) VALUES (?, ?, ?, ?, ?)",
+    [categoria_id, nombre, descripcion, precio, imagen]
+  );
+  return result.insertId;
+}
+
+export async function deleteProducto(id: number): Promise<void> {
+  await pool.query("DELETE FROM productos WHERE id = ?", [id]);
+}
