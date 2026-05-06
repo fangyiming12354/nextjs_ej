@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS nextjs_ej;
+USE nextjs_ej;
+
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
